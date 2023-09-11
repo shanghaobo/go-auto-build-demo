@@ -36,4 +36,4 @@ jobs:
           goarch: ${{ matrix.goarch }}
           goversion: 1.21.0
           binary_name: "ts"
-          project_path: "./ts/ts"
+          project_path: "./ts"
