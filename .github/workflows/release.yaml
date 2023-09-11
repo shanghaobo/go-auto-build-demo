@@ -29,3 +29,11 @@ jobs:
           goarch: ${{ matrix.goarch }}
           goversion: 1.21.0
           binary_name: "hello"
+      - uses: wangyoucao577/go-release-action@v1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          goos: ${{ matrix.goos }}
+          goarch: ${{ matrix.goarch }}
+          goversion: 1.21.0
+          binary_name: "ts"
+          project_path: "./ts/ts"
