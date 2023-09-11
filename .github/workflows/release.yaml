@@ -30,7 +30,7 @@ jobs:
           compress_assets: off
           md5sum: false
           pre_command: "go install github.com/akavel/rsrc&&rsrc -ico ./build/logo.ico -o resources.syso"
-          ldflags: "-extldflags -static -H windowsgui -s -w"
+#          ldflags: "-extldflags -static -H windowsgui -s -w"
 
   releases-ts:
     name: Release Ts Binary
