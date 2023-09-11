@@ -1,0 +1,21 @@
+on:
+  release:
+    types: [created]
+
+permissions:
+  contents: write
+  packages: write
+
+jobs:
+  release-go:
+    name: release go
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: wangyoucao577/go-release-action@v1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          goos: [linux, windows]
+          goarch: [amd64, arm64]
+          amd64: 1.21.0
+          binary_name: "hello"
