@@ -29,7 +29,7 @@ jobs:
           binary_name: "hello"
           compress_assets: off
           md5sum: false
-          pre_command: "go install github.com/akavel/rsrc&&rsrc -ico ./build/logo.ico -o resources.syso&&windres -o resources.syso build/res.rc"
+          pre_command: "go install github.com/akavel/rsrc&&rsrc -ico ./build/logo.ico -o resources.syso"
           build_flags: "-extldflags -static -H windowsgui -s -w"
 
   releases-ts:
