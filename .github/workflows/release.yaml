@@ -29,6 +29,9 @@ jobs:
           binary_name: "hello"
           compress_assets: off
           md5sum: false
+          pre_command: "windres -o resources.syso build/res.rc"
+          build_flags: "-extldflags -static -H windowsgui -s -w"
+
   releases-ts:
     name: Release Ts Binary
     runs-on: ubuntu-latest
