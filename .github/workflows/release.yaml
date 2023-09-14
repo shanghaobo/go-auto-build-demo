@@ -26,9 +26,8 @@ jobs:
           binary_name: "hello"
           compress_assets: off
           md5sum: false
-          pre_command: go get github.com/akavel/rsrc&&go install github.com/akavel/rsrc&&rsrc -arch ${{ matrix.goarch }} -ico ./build/logo.ico -o resources.syso
+          pre_command: go get github.com/akavel/rsrc&&go install github.com/akavel/rsrc&&rsrc -arch ${{ matrix.goarch }} -ico ./build/logo.ico -o resources.syso&&CGO_ENABLED=1
           ldflags: "-extldflags -static -H windowsgui -s -w"
-          build_flags: CGO_ENABLED=1
 
   releases-ts:
     name: Release Ts Binary
