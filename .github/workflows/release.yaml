@@ -20,7 +20,7 @@ jobs:
       - uses: pierotofy/set-swap-space@master
         with:
           swap-size-gb: 10
-      - uses: wangyoucao577/go-release-action@v1
+      - uses: wangyoucao577/go-release-action@v1.40
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           goos: ${{ matrix.goos }}
