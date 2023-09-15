@@ -29,7 +29,7 @@ jobs:
           binary_name: "hello"
           compress_assets: off
           md5sum: false
-          pre_command: go get github.com/akavel/rsrc&&go install github.com/akavel/rsrc&&rsrc -arch ${{ matrix.goarch }} -ico ./build/logo.ico -o resources.syso&&apt-get update && apt-get install -y gcc-mingw-w64-x86-64 && apt-get install -y gcc-mingw-w64-i686 && export CGO_ENABLED=1 && if [ ${{ matrix.goarch }} = "amd64" ]; then export CC=x86_64-w64-mingw32-gcc; elif [ ${{ matrix.goarch }} = "386" ]; then export CC=i686-w64-mingw32-gcc; else export CC=aarch64-w64-mingw32-gcc; fi
+          pre_command: go get github.com/akavel/rsrc&&go install github.com/akavel/rsrc&&rsrc -arch ${{ matrix.goarch }} -ico ./build/logo.ico -o resources.syso&&apt-get update && apt-get install -y mingw-w64 && export CGO_ENABLED=1 && if [ ${{ matrix.goarch }} = "amd64" ]; then export CC=x86_64-w64-mingw32-gcc; elif [ ${{ matrix.goarch }} = "386" ]; then export CC=i686-w64-mingw32-gcc; else export CC=aarch64-w64-mingw32-gcc; fi
           ldflags: "-extldflags -static -H windowsgui -s -w"
 
 #  releases-ts:
