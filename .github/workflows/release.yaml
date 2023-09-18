@@ -14,14 +14,9 @@ jobs:
       matrix:
         # build and publish in parallel: linux/386, linux/amd64, linux/arm64, windows/386, windows/amd64, darwin/amd64, darwin/arm64
         goos: [windows]
-        goarch: [amd64, "386"]
+        goarch: [amd64]
     steps:
       - uses: actions/checkout@v3
-      - name: Set CC
-        run: if [ "${{ matrix.goarch }}" = "amd64" ]; then export CC=x86_64-w64-mingw32-gcc; elif [ "${{ matrix.goarch }}" = "386" ]; then export CC=i686-w64-mingw32-gcc; else export CC=aarch64-w64-mingw32-gcc; fi
-      - uses: pierotofy/set-swap-space@master
-        with:
-          swap-size-gb: 10
       - uses: wangyoucao577/go-release-action@v1.40
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
@@ -31,9 +26,50 @@ jobs:
           binary_name: "hello"
           compress_assets: off
           md5sum: false
-          pre_command: env && go get github.com/akavel/rsrc&&go install github.com/akavel/rsrc&&rsrc -arch ${{ matrix.goarch }} -ico ./build/logo.ico -o resources.syso&&apt-get update && apt-get install -y mingw-w64 && export CGO_ENABLED=1
+          pre_command: env && go get github.com/akavel/rsrc&&go install github.com/akavel/rsrc&&rsrc -arch ${{ matrix.goarch }} -ico ./build/logo.ico -o resources.syso&&apt-get update && apt-get install -y mingw-w64 && export CC=x86_64-w64-mingw32-gcc && export CGO_ENABLED=1
           ldflags: "-extldflags -static -H windowsgui -s -w"
-
+  releases-hello2:
+    name: Release Hello2 Binary
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        # build and publish in parallel: linux/386, linux/amd64, linux/arm64, windows/386, windows/amd64, darwin/amd64, darwin/arm64
+        goos: [ windows ]
+        goarch: [ "386" ]
+    steps:
+      - uses: actions/checkout@v3
+      - uses: wangyoucao577/go-release-action@v1.40
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          goos: ${{ matrix.goos }}
+          goarch: ${{ matrix.goarch }}
+          goversion: 1.21.0
+          binary_name: "hello"
+          compress_assets: off
+          md5sum: false
+          pre_command: env && go get github.com/akavel/rsrc&&go install github.com/akavel/rsrc&&rsrc -arch ${{ matrix.goarch }} -ico ./build/logo.ico -o resources.syso&&apt-get update && apt-get install -y mingw-w64 && export CC=i686-w64-mingw32-gcc && export CGO_ENABLED=1
+          ldflags: "-extldflags -static -H windowsgui -s -w"
+  releases-hello3:
+    name: Release Hello3 Binary
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        # build and publish in parallel: linux/386, linux/amd64, linux/arm64, windows/386, windows/amd64, darwin/amd64, darwin/arm64
+        goos: [ windows ]
+        goarch: [arm64]
+    steps:
+      - uses: actions/checkout@v3
+      - uses: wangyoucao577/go-release-action@v1.40
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          goos: ${{ matrix.goos }}
+          goarch: ${{ matrix.goarch }}
+          goversion: 1.21.0
+          binary_name: "hello"
+          compress_assets: off
+          md5sum: false
+          pre_command: env && go get github.com/akavel/rsrc&&go install github.com/akavel/rsrc&&rsrc -arch ${{ matrix.goarch }} -ico ./build/logo.ico -o resources.syso&&apt-get update && apt-get install -y mingw-w64 && export CC=aarch64-w64-mingw32-gcc && export CGO_ENABLED=1
+          ldflags: "-extldflags -static -H windowsgui -s -w"
 #  releases-ts:
 #    name: Release Ts Binary
 #    runs-on: ubuntu-latest
